@@ -1,0 +1,43 @@
+---
+import SocialList from "@/components/SocialList";
+import PageLayout from "@/layouts/Base";
+import { getAllPosts, sortMDByDate } from "@/utils";
+import PostPreview from "@/components/blog/PostPreview";
+
+const MAX_POSTS = 10;
+const allPosts = await getAllPosts();
+const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
+---
+
+<PageLayout meta={{ title: "Home" }}>
+	<section>
+		<h1 class="title mb-6">👋 Hi there</h1>
+		<p class="mb-4">
+			I'm Kittichan you can call me <b>"Petch"</b>. Software Engineer Experience at <b>"LMWN"</b>
+			I'm work in restaurant solution team contribute on wongnai merchant app (WMA)
+		</p>
+		<SocialList />
+	</section>
+	<section aria-label="Blog post list" class="mt-16">
+		<h2 class="title mb-4 text-xl">Quote</h2>
+		<p class="my-4">
+			"Any fool can write code that a computer can understand. Good programmers write code that
+			humans can understand." - <b class="cactus-link">Martin Fowler</b>
+		</p>
+		<p class="mb-4">
+			"First, solve the problem. Then, write the code." - <b class="cactus-link">John Johnson</b>
+		</p>
+	</section>
+	<section aria-label="Blog post list" class="mt-16">
+		<h2 class="title mb-4 text-xl">Posts</h2>
+		<ul class="space-y-4 sm:space-y-2">
+			{
+				allPostsByDate.map((p) => (
+					<li class="flex flex-col gap-x-2 sm:flex-row">
+						<PostPreview post={p} />
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</PageLayout>
